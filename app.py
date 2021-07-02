@@ -32,7 +32,7 @@ class Picture_Show(QtWidgets.QMainWindow, Ui_Picture_Window):
             files.extractall(self.name_of_directory)
             self.many_files()
         else:
-            self.one_file(name)
+            self.one_file(name.split('/')[-1])
 
     def many_files(self):
         directory = os.fsdecode(self.name_of_directory)
