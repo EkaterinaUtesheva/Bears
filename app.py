@@ -36,7 +36,7 @@ class Picture_Show(QtWidgets.QMainWindow, Ui_Picture_Window):
         else:
             self.one_file(name.split('/')[-1])
 
-    def change_photo(fname, directory_name):
+    def change_photo(self, fname, directory_name):
         img = cv2.imread(fname)
         hsv = cv2.cvtColor(img, cv2.COLOR_BGR2HSV)
         h = hsv[:, :, 0]
@@ -83,7 +83,6 @@ class Picture_Show(QtWidgets.QMainWindow, Ui_Picture_Window):
 
 
     def many_files(self):
-        print(1234)
         directory = os.fsdecode(self.name_of_directory)
         self.files_path = []
         self.name_of_directory_new = self.name_of_directory + '_new'
@@ -91,7 +90,7 @@ class Picture_Show(QtWidgets.QMainWindow, Ui_Picture_Window):
         for file in os.listdir(directory):
             fname = self.name_of_directory + '/' + str(file)
             directory_name = self.name_of_directory_new + '/' + str(file)
-            self.files_path.append(change_photo(fname, directory_name))
+            self.files_path.append(self.change_photo(fname, directory_name))
         self.last_ind_of_photo = 0
         self.set_pixmap(self.files_path[self.last_ind_of_photo])
         print(self.files_path)
@@ -119,7 +118,7 @@ class Picture_Show(QtWidgets.QMainWindow, Ui_Picture_Window):
         self.pushButton_left.setEnabled(False)
         self.pushButton_right.setEnabled(False)
         print('processing...')
-        change_photo(fname, fname[:-4] + '_new' + fname[-4:])
+        self.change_photo(fname, fname[:-4] + '_new' + fname[-4:])
         self.set_pixmap(fname[:-4] + '_new' + fname[-4:])
 
     def set_pixmap(self, fname):
